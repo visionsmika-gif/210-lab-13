@@ -27,18 +27,12 @@ int main() {
 	while (inputFile >> price) {
 		prices.push_back(price);
 	}
-
+	
 	if (inputFile.fail() && !inputFile.eof()) {
 		cout << "ERROR: There was an error reading " << FILE_NAME << ". Please check that the file is in the proper format.\n";
 		return 1;
 	}
-	/*
-	for (int i = 0; i < SIZE; ++i) {
-		if (!(inputFile >> prices[i])) {
-			cout << "ERROR: There was an error reading " << FILE_NAME << ". Please check that the file is in the proper format.\n";
-			return 1;
-		}
-	}*/
+
 	inputFile.close();
 
 	cout << fixed << setprecision(CENT_DIGITS);
@@ -92,7 +86,7 @@ int main() {
 	// Create a new vector to swap with
 	vector<double> otherArray;
 	for (int i = 0; i < prices.size(); ++i) {
-		otherArray[i] = i;
+		otherArray.push_back(i);
 	}
 
 	// Swap the arrays
