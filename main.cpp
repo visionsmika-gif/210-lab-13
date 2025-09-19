@@ -2,17 +2,17 @@
 // IDE used: Visual Studio 2022
 
 #include <iostream>
-#include <array>
+#include <vector>
 #include <fstream>
 #include <iomanip>
 #include <algorithm> // For sort() and find()
 #include <numeric> // For accumulate()
 
+// INSTRUCTIONS: Modify the code so that it uses STD::vector instead of STD::array.
 using namespace std;
 
 int main() {
-	const int SIZE = 30;
-	array<double, SIZE> prices;
+	vector<double> prices;
 	const string FILE_NAME = "prices.txt";
 	ifstream inputFile(FILE_NAME);
 	const int CENT_DIGITS = 2; // Used for setprecision() to display cents properly
@@ -22,13 +22,23 @@ int main() {
 		cout << "ERROR: Unable to open " << FILE_NAME << ". Please ensure that the file is in the same directory as the program.\n";
 		return 1;
 	}
-	// Read the file into the array
+	// Read the file into the array using push_back
+	double price;
+	while (inputFile >> price) {
+		prices.push_back(price);
+	}
+
+	if (inputFile.fail() && !inputFile.eof()) {
+		cout << "ERROR: There was an error reading " << FILE_NAME << ". Please check that the file is in the proper format.\n";
+		return 1;
+	}
+	/*
 	for (int i = 0; i < SIZE; ++i) {
 		if (!(inputFile >> prices[i])) {
 			cout << "ERROR: There was an error reading " << FILE_NAME << ". Please check that the file is in the proper format.\n";
 			return 1;
 		}
-	}
+	}*/
 	inputFile.close();
 
 	cout << fixed << setprecision(CENT_DIGITS);
@@ -69,7 +79,7 @@ int main() {
 	// Find an element
 	double target = 81.20;
 	cout << "Finding an item with a price of $" << target << "...\n";
-	array<double, SIZE>::iterator it; // Iterator for found element
+	vector<double>::iterator it; // Iterator for found element
 	it = find(prices.begin(), prices.end(), target);
 
 	if (it != prices.end()) {
@@ -79,9 +89,9 @@ int main() {
 		cout << "An item with a price of $" << target << " was not found.\n\n";
 	}
 
-	// Create a new array to swap with
-	array<double, SIZE> otherArray;
-	for (int i = 0; i < SIZE; ++i) {
+	// Create a new vector to swap with
+	vector<double> otherArray;
+	for (int i = 0; i < prices.size(); ++i) {
 		otherArray[i] = i;
 	}
 
