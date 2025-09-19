@@ -8,7 +8,6 @@
 #include <algorithm> // For sort() and find()
 #include <numeric> // For accumulate()
 
-// INSTRUCTIONS: Modify the code so that it uses STD::vector instead of STD::array.
 using namespace std;
 
 int main() {
